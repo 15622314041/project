@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../css/base.css" />
+    <link rel="stylesheet" type="text/css" href="../css/register.css" />
+    <script src="../js/jquery-3.4.1.js"></script>
+    <script src="../js/captcha.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            
+            let username = $("#username");
+            let password1 = $("#password1");
+            let password2 = $("#password2");
+            let imgCode = $("#img-code");
+
+            var password1Text ="";
+            var password2Text ="";
+            var imgCodeRes=0;
+            var judge=2;
+
+            //验证码处理
+            let cap = new Captcha({ fontSize: 20,lineNum:2,dotNum:0,backGroundColor: [255, 255],lineWidth: 1.5})
+            cap.draw(document.querySelector('#captcha'), r => {
+                console.log(r, '验证码1');
+                // imgCodeText = r;
+                /* 自动触发标签失去焦点的事件 */
+                // imgCode.trigger("blur");
+                imgCodeRes=r;
+            });    
+            // 点击换一换刷新图片验证码
+            $(".change-img").on("click",function(){
+                cap.draw(document.querySelector('#captcha'), r => {
+                console.log(r, '验证码1');
+                imgCodeRes=r;
+                });
+            })
+            /* 正则表达式 */
+            let regUsername = /^[A-Za-z]{6,8}$/;
+            let regPhone = /^1[3-9]\d{9}$/; /* 1开头 第二位3-9 后面全都是数字   11位 */
+            let regPassword = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
+            
+
+            //设置密码默认状态为不可选
+            password2.attr({disabled:"disabled"});
+            password2.css({
+                "background-color":"#e9e9e9",
+                "cursor":"not-allowed"
+            })
+
+            //添加用户名失去焦点事件
+            username.blur(function(e) {
+                let usernameText = $.trim(username.val());
+                if(usernameText==""){
+                    username.siblings('.text-empty').css("display",'block');
+                    username.css("border-color","orange")
+                }else if(usernameText!==""){
+                    username.css("border-color","#e8e8e8");
+                    username.siblings('.text-empty').css("display",'none');
+                    if(regPhone.test(usernameText)==false){
+                        username.siblings('.reg').css("display",'block');
+                    }else if(regPhone.test(usernameText)==true){
+                        username.siblings('.text-true').css("display",'block').siblings('.text-empty').css("display",'none').siblings('.reg').css("display",'none');
+                        $(".img-code").css("display",'block');
+                        $(".phone-code").css("display",'block');
+                    }
+                }
+            });
+
+            password1.focus(function(e) {
+                if(username.val()==""){
+                    username.siblings('.text-empty').css("display",'block');
+                    username.css("border-color","orange")
+                }
+                password1.next(".reg").addClass('psd1');
+                password1.next(".reg").text("6-20位字符,建议由字母、数字和符号两种以上组合")                   
+            });
+            //添加密码失去焦点事件
+            password1.blur(function(e){
+                password1Text = password1.val();
+                if(password1Text==""){
+                    password1.next(".reg").removeClass('psd1');
+                    password1.next('.reg').css("display",'block'); 
+                    password1.next(".reg").text("密码不能为空");
+                }
+                if(password1Text!==""){
+                    if(regPassword.test(password1Text)==false){
+                        password1.next(".reg").removeClass('psd1');
+                        password1.next('.reg').css("display",'block'); 
+                        password1.next(".reg").text("密码只能为6-20位数字、字母或符号组合");
+                    }else if(regPassword.test(password1Text)==true){
+                        password1.next(".reg").css("display","none");
+                        password1.siblings(".text-true").css("display","block");
+                        //解禁password2
+                        password2.removeAttr("disabled");
+                        password2.css({
+                            "background-color":"",
+                            "cursor":""
+                        })
+                    }    
+                }
+            })
+
+            //添加重复失去焦点事件
+            password2.blur(function(e){
+                password2Text = password2.val();
+                if(password2Text==""){
+                    password2.next('.reg').css("display",'block'); 
+                    password2.next(".reg").text("确认密码不能为空");
+                }
+                if(password2Text!==""){
+                    if(password2.val()!==password1.val()){
+                        password2.next('.reg').css("display",'block'); 
+                        password2.next(".reg").text("两次输入的密码不一致,请重新输入");
+                    }else if(password2.val()==password1.val()){
+                        password2.next(".reg").css("display","none");
+                        password2.siblings(".text-true").css("display","block");
+                    }    
+                }
+            })
+
+            imgCode.blur(function(e) {
+                let imgCodeText=imgCode.val();
+                if(imgCodeText==""){
+                    imgCode.siblings('.reg').css('display', 'block');
+                    imgCode.siblings('.reg').text("请输入验证码");
+                }
+                //全部转换成小写来比较
+                if(imgCodeText!==""){
+                    if(imgCodeText.toLowerCase()!==imgCodeRes.toLowerCase()){
+                        imgCode.siblings('.reg').css('display', 'block');
+                        imgCode.siblings('.text-false').css('display','block');
+                        imgCode.siblings('.reg').text("验证码有误");  
+                        judge=false;  
+                    }
+                    if(imgCodeText.toLowerCase()==imgCodeRes.toLowerCase()){
+                        imgCode.siblings('.reg').css('display', 'none');
+                        imgCode.siblings('.text-true').css('display', 'block').siblings('.text-false').css('display','none');
+                        judge=true;
+                    }
+                }
+
+            });
+
+        })
+    
+        
+        
+
+    </script>
+</head>
+<body>
+    <div class="header">
+        <h1><a href="#" class="logo"><img src="https://s.maiyaole.com/images/passport/yao_logo.png" alt="" /></a></h1>
+    </div>
+    <div class="main">
+        <h2 class="title">
+            Hi,欢迎注册！
+            <span class="fr">我已经注册，现在就<a href="/sso/login.action"class="blue_link">登录</a></span>
+        </h2>
+        <div class="content">
+            <div class="username">
+                <input type="text" id="username" placeholder="手机号"/>
+                <div class="reg">手机号码格式不正确</div>
+                <i class="text-true"></i>
+                <i class="text-empty">不能为空</i>
+            </div>
+            <div class="password1">
+                <input type="password" id="password1" placeholder="登录密码"/>
+                <div class="reg"></div>
+                <i class="text-true"></i>
+                <i class="text-empty">不能为空</i>
+            </div>
+            <div class="password2">
+                <input type="password" id="password2" placeholder="确认密码"/>
+                <div class="reg">手机号码格式不正确</div>
+                <i class="text-true"></i>
+                <i class="text-empty">不能为空</i>
+            </div>
+            <div class="img-code">
+                <input type="text" id="img-code" placeholder="验证码"/>
+                <i class="text-true"></i>
+                <i class="text-false"></i>
+                <canvas width="100" height="40" id="captcha"></canvas>
+                <a href="#" class="change-img">换一张</a>
+                <div class="reg"></div>
+            </div>
+            <div class="phone-code">
+                <input type="text" id="phone-code" placeholder="短信验证"/>
+                <button id="get-code">获取短信验证码</button>
+            </div>
+            <p class="push">
+                注册即代表您已同意1药网<a href="">《服务协议》</a>和
+                <a href="">《隐私条款》</a>
+            </p>
+            <button id="btn">立即注册</button>
+        </div> 
+    </div>
+
+
+
+</body>
+</html>
