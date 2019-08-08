@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <script src="../js/jquery-3.4.1.js"></script>
+</head>
+<body>
+    <script type="text/javascript">
+    $.ajax({
+        url: './downLoad.php',
+        type: 'post',
+        dataType: 'json',
+        success(res){
+            console.log(res);
+        }
+    })
+    
+    </script>
+</body>
+</html>
