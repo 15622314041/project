@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2019-08-03 18:02:42
 * @Last Modified by:   Marte
-* @Last Modified time: 2019-08-06 15:21:03
+* @Last Modified time: 2019-08-09 11:59:35
 */
 
 $(document).ready(function(){
@@ -22,6 +22,7 @@ $(document).ready(function(){
         "https://p1.maiyaole.com/img/item/1564723386944503.jpg"
     ]
     var adsBanner="https://p1.maiyaole.com/img/item/1564969875056511.jpg"
+    var searchArr= ["阿胶","感冒","逍遥丸","妇炎洁","血压计","护理液"]
     //添加导航栏
     let headNavList=headerCArr.map((ele,i)=>{
         return `<li class="fl"><a href="#">${ele}</a></li>`
@@ -120,6 +121,10 @@ $(document).ready(function(){
                   return `<a href="#">${ele}</a>`  
                 }).join('')
             })
+            let searchResHtml=searchArr.map((ele,i)=>{
+                return`<a href= "../html/goods.html">${ele}</a>`
+            }).join('');
+            $(".searchKey").html(searchResHtml);
                   
         }
         addMouseEvent(){
@@ -148,6 +153,42 @@ $(document).ready(function(){
         }
     })
     
+
+    //mrt选显卡
+    $.ajax({
+        url: './server/mrtTab.php',
+        type: 'post',
+        dataType: 'json',
+        success(res){
+            var data = res;
+            let mrtHtml = res.title.map((ele,i)=>{
+                return `<div class = "mrt-h">${ele}</div>`
+            }).join('');
+            let mrtcon = res.title.map((ele,i)=>{
+                return `<div class = "mrt-content"></div>`
+            }).join('');
+            $(".mrt-t").append(mrtHtml);
+            $(".mrt-con").append(mrtcon);
+
+            let acHtml = data.list.map((ele,i)=>{
+                return`<a href="#">${ele}></a>`
+            }).join('');
+
+            $(".mrt-content").eq(0).append(acHtml);
+            let abHtml = `<a href="#"><span></span><p>综合门诊</p></a>
+            <a href="#"><span></span><p>儿科</p></a>`
+            $(".mrt-content").eq(1).append(abHtml);
+            $(".mrt-content").eq(0).css("display","block")
+            $(".mrt-h").on("click",function(){
+                var idx = $(this).index();
+                $(".mrt-content").eq(idx).css("display","block").siblings().css("display","none");
+            })
+        }
+    })
+    
+
+
+
     //轮播图
     class BannerManager {
         constructor(data, root = document.body) {
