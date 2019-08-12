@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2019-08-07 20:08:51
 * @Last Modified by:   Marte
-* @Last Modified time: 2019-08-09 17:31:19
+* @Last Modified time: 2019-08-12 09:25:09
 */
 
 $(document).ready(function(){
@@ -147,7 +147,51 @@ $(document).ready(function(){
                 }
             })    
     }
-        
+    
+    //footer部分
+    class footerTop{
+        constructor(data){
+            this.data = data;
+            this.list = data.list;
+            this.logo = data.logo;
+            this.dd = [];
+            this.list.forEach((ele,i)=>{
+                this.dd.push(ele.dd)
+            })
+            console.log(this.dd);
+
+        }
+        init(){
+            this.render()
+        }
+        render(){
+            let imgHtml = `<img src=${this.logo}>`
+            $(".footer-t").append(imgHtml);
+            let dlBox= $('<div class="dl-box"></div>');
+            $(".footer-t").append(dlBox);
+
+            let dlBoxHtml= this.list.map((ele,i)=>{
+                return `<dl><dt>${ele.odt}</dt></dl>`
+            }).join('');
+
+            $(".dl-box").append(dlBoxHtml);
+
+            $(".dl-box dl").each((idx,item)=>{
+                item.innerHTML+=this.dd[idx].map((ele,i)=>{
+                    return `<dd><a href ="#">${ele}</a></dd>`
+                }).join('');
+            })
+        }
+    }
+    $.ajax({
+        url: '../server/footerTop.php',
+        type: 'post',
+        dataType: 'json',
+        success(res){
+            let ft = new footerTop(res);
+            ft.init();
+        }
+    })    
    
 
     getList(0);
@@ -213,7 +257,27 @@ $(document).ready(function(){
             success(res) {
                 // console.log(response);
                 var text = res["totalRow"];
-                console.log(text)
+                console.log(text) 
+                // $("#catShow").html(text)
+
+            }
+        });
+    })
+
+    $(".goods-ul").on("click",".btn-l",function(){
+        var idx = $(this).parents("li").index();
+        var goodid = itemData[idx].goodid;
+        var price = itemData[idx].price;
+        console.log(goodid);
+
+        $.ajax({
+            type: "get",
+            url: "../server/addDetail.php",
+            data: `goodid=${goodid}`,
+            dataType: "json",
+            success(res) {
+                // console.log(response);
+                console.log("今晚打老虎")
                 // $("#catShow").html(text)
 
             }
@@ -221,6 +285,7 @@ $(document).ready(function(){
     })
 
 
+    
 
 
 

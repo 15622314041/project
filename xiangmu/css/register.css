@@ -2,7 +2,7 @@
 * @Author: Marte
 * @Date:   2019-08-01 15:43:38
 * @Last Modified by:   Marte
-* @Last Modified time: 2019-08-02 19:53:31
+* @Last Modified time: 2019-08-12 14:50:38
 */
 
 .header{
@@ -76,7 +76,7 @@
     font-size: 12px;
 }
 .main .content .img-code{
-    /*display:none;*/
+    display:none;
 }
 .main .content #img-code{
     width: 180px;
@@ -118,7 +118,7 @@
 }
 .main .content .phone-code{
     height: 50px;
-    /*display:none;*/
+    display:none;
 }
 #phone-code{
     float:left;

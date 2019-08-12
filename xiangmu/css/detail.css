@@ -1,0 +1,398 @@
+/* 
+* @Author: Marte
+* @Date:   2019-08-10 15:19:19
+* @Last Modified by:   Marte
+* @Last Modified time: 2019-08-12 02:12:55
+*/
+.con{
+    width: 990px;
+}
+.header{
+    height: 37px;
+}
+.detail-top{
+    height: 44px;
+    /*border-bottom: 1px solid red;*/
+    display:flex;
+    padding-top: 10px;
+    padding-bottom: 18px;
+}
+.detail-top a{
+    color:#555;
+    font-size: 12px;
+}
+.detail-top a span{
+    padding:0 8px;
+}
+.detail-main{
+    display:flex;
+}
+.dl{
+    width: 300px;
+    margin-right: 18px;
+    padding-bottom: 10px;
+}
+.dc{
+    width: 465px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.dr{
+    width: 192px;
+}
+.count-box input{
+    width: 73px;
+    height: 38px;
+    text-align: center;
+    line-height: 38;
+    font-size: 16px;
+    line-height: 38px;
+    padding: 0 5px;
+    border: 1px solid #e6e6e6;
+    float:left;
+}
+.btn-box{
+    width: 20px;
+    height: 40px;
+    float:left;
+    margin-left: 4px;
+}
+.btn-box button{
+    width: 19px;
+    height: 19px;
+    border:1px solid #e9e9e9;
+    float:left;
+    line-height: 19px;
+    text-align: center;
+}
+.btn-box .dec-btn{
+    transform:rotate(180deg);
+}
+.addCart{
+    float:left;
+}
+.addCart a{
+    display:block;
+    background-color: #e72418;
+    background-position: 50px -763px;
+    background-repeat: no-repeat;
+    padding: 0 60px 0 90px;
+    border-bottom: 3px solid #9a0900;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    width: 222px;
+    line-height: 53px;
+    height: 53px;
+    vertical-align: top;
+    background-image: url(https://s.maiyaole.com/images/product/icon_detail.png?t==20141219);
+}
+.submit-btn{
+    margin-top: 20px;
+}
+.toCart{
+    float:left;
+    position:relative;
+}
+.toCart .circle{
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    background: #E72418;
+    width: 22px;
+    height: 22px;
+    border-radius: 22px;
+    text-align: center;
+    line-height: 22px;
+    color: #fff;
+}
+.toCart a{
+    display:block;
+    background: #0099F1;
+    width: 53px;
+    height: 53px;
+    color: #ffffff;
+    margin-left: 10px;
+    border: 0;
+    border-bottom: 3px solid #0083CE;
+    white-space: normal;
+    padding: 10px 11px;
+    cursor: pointer;
+    font-size: 12px;
+}
+.more{
+    margin-top: 18px;
+    text-align: center;
+}
+.dr p{
+    font-size: 12px;
+    color:#555;
+    text-align: center;
+}
+.more a{
+    display:block;
+    margin:0 auto;
+    width: 85px;
+    height: 26px;
+    padding-left: 30px;
+    background: #cce6f5 url(//s.maiyaole.com/images/product/online.gif) no-repeat 4px 0;
+    border: 1px solid #0083ce;
+    color: #0083ce;
+    line-height: 26px;
+}
+.more img{
+    width: 120px;
+    height: 120px;
+}
+.item-title{
+    margin-bottom: 10px;
+    font-size: 17px;
+    font-weight: 700;
+    font-family: 'microsoft yahei';
+    padding-right: 15px;
+    line-height: 30px;
+}
+.item-title span{
+    float: left;
+    margin-right: 6px;
+    font-size: 15px;
+    line-height: 21px;
+    text-align: center;
+    width: 39px;
+    height: 21px;
+    background-image: url(https://s.maiyaole.com/images/common/activity/detail_business.png);
+    color: #11afad;
+}
+.item-price{
+    padding-bottom: 15px;
+    line-height: 20px;
+    margin-right: 0;
+    color: #e72418;
+    font-weight: 400;
+    display: block;
+    line-height: 22px;
+    padding-top: 6px;
+    padding-right: 6px;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+.item-price span{
+    padding-top: 12px;
+    line-height: 22px;
+    /*float: left;*/
+    width: 85px;
+    clear: left;
+    text-align: left;
+    text-align: right;
+    padding-right: 15px;
+    font-size: 14px;
+    color:#999;
+}
+.item-count{
+    height: 40px;
+    line-height: 40px;
+}
+.item-count span{
+    padding-right: 15px;
+}
+.bbt{
+    font-size: 12px;
+    color:#999;
+    margin-top: 20px;
+    line-height: 1.6;
+}
+
+.dr h3{
+    padding: 14px 15px;
+    line-height: 1.5;
+    background-color: #f8f8f8;
+    font-size: 14px;
+    color: #5e5e5e;
+}
+.dr .commit{
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.5;
+    font-family: 'yahei';
+    font-weight: bold;
+    display:flex;
+}
+.dr .commit span{
+    text-align: center;
+    flex:1;
+}
+.dr-data1 li{
+    font-size: 12px;
+
+    padding: 5px 0;
+    padding-left: 15px;
+    height: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;    
+}
+.dr-data1 li span{
+    padding:0 5px;
+}
+.dr-data1 li .c999{
+    color:#999;
+}
+.dr-data1 li i{
+    width: 20px;
+    height: 20px;
+}
+.dr-data2{
+    border-top: 1px solid #999;
+    margin-top: 10px;
+}
+.dr-data2 li{
+    font-size: 12px;
+    padding:5px 0;
+}
+.dr-data2 span{
+    display:inline-block;
+    color: #999;
+    font-size: 12px;
+    width: 80px;
+    text-align: center;
+}
+
+
+
+/*放大镜样式操作*/
+img{
+    border: 0;
+}
+/* 垂直居中 */
+.small-img{
+    display: flex;
+    align-items:center;
+    justify-content: center;
+}
+.clearfix:before,
+.clearfix:after{
+  display: table;
+  line-height: 0;
+  content: "";
+}
+.magnifier{
+    width: 300px;
+    position: relative;
+    /*background:red;*/
+    height: 300px;
+}
+.magnifier-container{
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+    /*border: 1px solid #ddd;*/
+}
+.move-view{
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    background:#e9e9e9;
+    opacity:0.5;
+}
+.images-cover{
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+.images-cover img{
+    position: absolute;
+    width:100%;
+    height: 100%;
+}
+.magnifier-assembly{
+    height: 92px;
+    overflow: hidden;
+    position: relative;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.magnifier-btn{
+    position: absolute;
+    font-family: "宋体";
+    width: 100%;
+    top: 50%;
+    left: 0;
+    margin-top: -40px;
+}
+.magnifier-btn span{
+    line-height: 80px;
+    height: 50px;
+    line-height: 50px;
+    color:#555;
+    width: 20px;
+    display: block;
+    z-index: 9998;
+    text-align: center;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.magnifier-btn .magnifier-btn-left{
+    float: left;
+}
+.magnifier-btn .magnifier-btn-right{
+    float: right;
+}
+.magnifier-line{
+    position: relative;
+    overflow: hidden;
+    height: 60px;
+    padding-top: 5px;
+}
+.magnifier-line ul{
+    display: block;
+    font-size: 0;
+    width: 10000%;
+    position: absolute;
+    left: 0;
+    z-index: 9997;
+}
+.magnifier-line li{
+    float: left;
+    /*width: 100px;*/
+    cursor: pointer;
+    width: 51px;
+    height: 51px;
+}
+.magnifier-line ul > .active .small-img{
+    border-color: red;
+}
+.small-img{
+    height: 51px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+.small-img img{
+    max-width: 100%;
+    max-height: 100%;
+}
+.magnifier-view{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    right: -105%;
+    top: 0;
+    z-index: 9999;
+    background-color: #fff;
+    display: none;
+    overflow: hidden;
+}
+.magnifier-view img{
+    display: block;
+}
+.animation03{
+    transition: all 0.3s ease-in 0.1s;
+    -ms-transition: all 0.3s ease-in 0.1s;
+    -moz-transition: all 0.3s ease-in 0.1s;
+    -webkit-transition: all 0.3s ease-in 0.1s;
+    -o-transition: all 0.3s ease-in 0.1s;
+}

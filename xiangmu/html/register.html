@@ -20,6 +20,31 @@
             var imgCodeRes=0;
             var judge=2;
 
+
+
+            function formatterDateTime() {
+                var date = new Date()
+                var month = date.getMonth() + 1
+                var datetime = date.getFullYear() +
+                    "" // "年"
+                    +
+                    (month >= 10 ? month : "0" + month) +
+                    "" // "月"
+                    +
+                    (date.getDate() < 10 ? "0" + date.getDate() : date
+                        .getDate()) +
+                    "" +
+                    (date.getHours() < 10 ? "0" + date.getHours() : date
+                        .getHours()) +
+                    "" +
+                    (date.getMinutes() < 10 ? "0" + date.getMinutes() : date
+                        .getMinutes()) +
+                    "" +
+                    (date.getSeconds() < 10 ? "0" + date.getSeconds() : date
+                        .getSeconds());
+                return datetime;
+            }
+
             //验证码处理
             let cap = new Captcha({ fontSize: 20,lineNum:2,dotNum:0,backGroundColor: [255, 255],lineWidth: 1.5})
             cap.draw(document.querySelector('#captcha'), r => {
@@ -143,6 +168,50 @@
 
             });
 
+            /* 点击注册按钮的事件 */
+            // (1) 先获取标签绑定点击事件
+            // (2) 检查是否满足条件，如果满足条件那么就发送网络请求，否则提示
+            // [1] 表单要验证通过  && [2] 勾选同意注册协议
+            $("#btn").click(function() {
+                
+
+                var usernameText = $("#username").val();
+                var password1Text = $("#password1").val();
+                var msgText = $("#phone-code").val();
+                var imgCodeText = $("#img-code").val()
+                var password2Text = $("#password2").val();
+                // console.log(usernameText)
+                    if(usernameText.length !=0&&password1Text!=0&&imgCodeText.length!=0){
+                        $.ajax({
+                            type: "post",
+                            url: "../server/addUser.php",
+                            dataType: "json",
+                            data: `username=${usernameText}&password=${password1Text}`,
+                            // dataType: "dataType",
+                            success: function(response) {
+                                console.log(response);
+                                /* 先检查请求的结果，然后做出对应的处理 */
+                                if (response.status == "success") {
+                                    alert(response.msg);
+                                    /* 跳转到登录页面 */
+                                    window.location.href = "../html/login.html"
+                                } else {
+                                    alert(response.msg);
+                                }
+                            }
+                        });    
+                    }else{alert("请按要求重新输入")}
+                        
+                    
+                
+                    
+                
+
+            })
+                    
+
+
+
         })
     
         
@@ -157,7 +226,7 @@
     <div class="main">
         <h2 class="title">
             Hi,欢迎注册！
-            <span class="fr">我已经注册，现在就<a href="/sso/login.action"class="blue_link">登录</a></span>
+            <span class="fr">我已经注册，现在就<a href="../html/login.html"class="blue_link">登录</a></span>
         </h2>
         <div class="content">
             <div class="username">

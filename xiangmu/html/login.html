@@ -2,9 +2,148 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Document</title>
+    <title>登录</title>
+    <link rel="stylesheet" type="text/css" href="../css/base.css" />
+    <link rel="stylesheet" type="text/css" href="../css/login.css" />
+    <script src="../js/jquery-3.4.1.js"></script>
+    <script src="../js/captcha.js"></script>
+    <!-- <script src="../js/login.js"></script> -->
+    <script type="text/javascript">
+        window.onload=function(){
+            var imgCodeText
+            //验证码处理
+            let cap = new Captcha({ fontSize: 20,lineNum:2,dotNum:0,backGroundColor: [255, 255],lineWidth: 1.5})
+            cap.draw(document.querySelector('#captcha'), r => {
+                console.log(r, '验证码1');
+                // imgCodeText = r;
+                /* 自动触发标签失去焦点的事件 */
+                // imgCode.trigger("blur");
+                imgCodeRes=r;
+            });    
+
+            var imgCode = $("#img-code");
+            // let regPassword = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
+            imgCode.blur(function(e) {
+                imgCodeText=imgCode.val();
+                if(imgCodeText==""){
+                    imgCode.siblings('.reg').css('display', 'block');
+                    imgCode.siblings('.reg').text("请输入验证码");
+                }
+                //全部转换成小写来比较
+                if(imgCodeText!==""){
+                    if(imgCodeText.toLowerCase()!==imgCodeRes.toLowerCase()){
+                        imgCode.siblings('.reg').css('display', 'block');
+                        imgCode.siblings('.text-false').css('display','block');
+                        imgCode.siblings('.reg').text("验证码有误");  
+                        judge=false;  
+                    }
+                    if(imgCodeText.toLowerCase()==imgCodeRes.toLowerCase()){
+                        imgCode.siblings('.reg').css('display', 'none');
+                        imgCode.siblings('.text-true').css('display', 'block').siblings('.text-false').css('display','none');
+                        judge=true;
+                    }
+                }
+
+            });
+
+
+            // 点击换一换刷新图片验证码
+            $(".change-img").on("click",function(){
+                cap.draw(document.querySelector('#captcha'), r => {
+                console.log(r, '验证码1');
+                imgCodeRes=r;
+                });
+            })
+
+            $(".submit-btn").click(function(){
+                var usernameText=$("#username").val();
+                var passwordText=$("#password1").val();
+                console.log(passwordText)
+                $.ajax({
+                        type: "post",
+                        url: "../server/login.php",
+                        dataType: "json",
+                        data: `username=${usernameText}&password=${passwordText}`,
+                        // dataType: "dataType",
+                        success: function(response) {
+                            if(imgCodeText.toLowerCase()==imgCodeRes.toLowerCase()){
+                                console.log(response);
+                                /* 先检查请求的结果，然后做出对应的处理 */
+                                if (response.status == "success") {
+                                    localStorage.setItem("name", `${$("#username").val()}`)
+                                    alert(response.msg);
+
+                                    /* 跳转到登录页面 */
+                                    window.location.href = "../home.html"
+                                } else {
+                                    alert(response.msg);
+                                }    
+                            }else if(imgCodeText.toLowerCase()!=imgCodeRes.toLowerCase()){
+                                alert('请输入正确的验证码');
+                            }
+                            
+                        }
+                    });
+                
+
+            })
+            
+            // $.ajax({
+            //         url: '/path/to/file',
+            //         type: 'default GET (Other values: POST)',
+            //         dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+            //         data: {param1: 'value1'},
+            //     })
+                
+                    
+
+        }
+    </script>
 </head>
 <body>
-    
+    <div class="logo con"><img src="https://s.maiyaole.com/images/passport/yao_logo.png" alt="" /></div>
+   <div class="main con">
+       <div class="login-tab">
+           <ul>
+               <li><a href="###">普通登录</a></li>
+               <li><a href="###">手机快速登录</a></li>
+           </ul>
+       </div>
+       <div class="login-content">
+           <div class="content-one">
+               <h2>Hi，欢迎登录! <span>还不是1药网会员？<a  href="register.html">点击注册</a></span></h2>
+               <div class="username">
+                    <input type="text" id="username" placeholder="手机号"/>
+                </div>
+                <div class="password1">
+                    <input type="password" id="password1" placeholder="登录密码"/>
+                    <div class="reg">用户名或密码错误</div>
+                    <i class="text-true"></i>
+                </div>
+                <div class="img-code">
+                    <input type="text" id="img-code" placeholder="验证码"/>
+                    <i class="text-true"></i>
+                    <i class="text-false"></i>
+                    <canvas width="100" height="40" id="captcha"></canvas>
+                    <a href="#" class="change-img">换一张</a>
+                    <div class="reg"></div>
+                </div>
+                <button class="submit-btn">登录</button>
+                <p>登录即代表您已同意1药网 《服务协议》和 《隐私条款》</p>
+            </div>
+           <!-- <div class="content-two">
+               <h2>Hi，欢迎登录! <span>还不是1药网会员？<a  href="register.html">点击注册</a></span></h2>
+               <div class="username">
+                    <input type="text" id="username" placeholder="手机号"/>
+                </div>
+                <div class="phone-code">
+                    <input type="text" id="phone-code" placeholder="短信验证"/>
+                    <button id="get-code">获取短信验证码</button>
+                </div>
+                <button class="submit-btn">登录</button>
+                <p>登录即代表您已同意1药网<a href="###">《服务协议》</a>和 <a href="###">《隐私条款》</a></p>
+           </div> -->
+       </div>
+   </div>
 </body>
 </html>
